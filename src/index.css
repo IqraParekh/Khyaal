@@ -1,0 +1,45 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Newsreader", Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-arabic: "Amiri", "Noto Naskh Arabic", serif;
+
+  --color-khayal-ivory: #F6F2EA;
+  --color-khayal-beige: #E9E1D5;
+  --color-khayal-sage: #A8B5A0;
+  --color-khayal-charcoal: #3F4039;
+  --color-khayal-brown: #786A5B;
+  --color-khayal-gold: #B49A68;
+}
+
+:root {
+  color-scheme: light;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: #F6F2EA;
+  color: #3F4039;
+  min-height: 100vh;
+}
+
+h1, h2, h3, .font-serif-heading {
+  font-family: var(--font-serif);
+}
+
+.font-arabic {
+  font-family: var(--font-arabic);
+}
+
+/* Calm smooth focus outlines */
+input:focus, textarea:focus, button:focus-visible {
+  outline: 2px solid #B49A68;
+  outline-offset: 2px;
+}
+
+/* Subtle, peaceful transitions */
+* {
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+

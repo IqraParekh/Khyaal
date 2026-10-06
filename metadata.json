@@ -1,0 +1,7 @@
+{
+  "name": "Khayal",
+  "description": "Untangle your thoughts. Return your heart to Allah. A calm, private, AI-assisted reflection and overthinking journal.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+
