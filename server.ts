@@ -11,7 +11,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = Number(process.env.PORT) || 3000;
 
 app.use(express.json({ limit: '2mb' }));
 
@@ -57,12 +57,16 @@ function generateFallbackReflection(text: string, mood?: string) {
     ],
     feelings: [
       {
-        emotion: mood || 'Worry',
-        explanation: `It sounds like you may be feeling ${mood ? mood.toLowerCase() : 'unease'} as your mind attempts to anticipate what hasn't happened yet.`
+        emotion: mood || 'Unease & Anticipatory Worry',
+        explanation: `It sounds like you might be experiencing a quiet tension as your mind attempts to anticipate what hasn't unfolded yet.`
       },
       {
-        emotion: 'Overwhelm',
-        explanation: `It sounds like holding multiple uncertainties at once is making the present moment feel heavy.`
+        emotion: 'Mental Fatigue & Overwhelm',
+        explanation: `It seems possible that you are carrying multiple open loops at once, which can make the present moment feel crowded.`
+      },
+      {
+        emotion: 'Quiet Yearning for Clarity',
+        explanation: `Perhaps there is a feeling of hesitation, wondering whether you have enough certainty to take the next step.`
       }
     ],
     factVsFear: {
@@ -183,21 +187,42 @@ CRITICAL ETHICAL & CLINICAL BOUNDARIES:
 - NEVER say that emotional problems or anxiety are caused by "weak iman".
 - NEVER shame the user or tell them "just stop overthinking" or "have more faith".
 - Islamic reminders complement reflection and practical action, not replace professional medical or psychological care.
-- Use gentle non-diagnostic language: "It sounds like you may be feeling...", "You might be noticing...", "Sometimes our mind assumes..."
+
+EMOTIONAL REFLECTION SPECTRUM & GENTLE POSSIBILITY FRAMING:
+- Recognize a wide, nuanced spectrum of human emotions beyond generic labels, such as:
+  * Anticipatory dread / quiet unease / racing thoughts
+  * Mental exhaustion / depleted energy / burnout
+  * Quiet loneliness / feeling unheard / disconnection
+  * Self-doubt / fear of falling short / imposter pressure
+  * Disillusionment / unmet expectations / quiet grief
+  * Restless ambiguity / yearning for clarity / hesitation
+  * Compassion fatigue / carrying burdens not your own
+  * Frustration / blocked momentum / feeling misunderstood
+  * Overwhelm / feeling frozen / executive paralysis
+  * Spiritual yearning / remorse / desire for inner peace
+- MANDATORY PHRASING RULE: Frame ALL emotional reflections as gentle possibilities rather than certainties or facts.
+  Use phrases like:
+  * "It sounds like you might be experiencing..."
+  * "It seems possible that you are carrying..."
+  * "You might be noticing a quiet sense of..."
+  * "Perhaps there is a feeling of..."
+  * "It sounds like you may be grappling with..."
+- Never speak in absolutes like "You are feeling X" or "This shows you have X".
 
 STRUCTURED REFLECTION OUTPUT:
 1. WHAT HAPPENED? (Observable events only, stripped of assumptions)
-2. WHAT AM I FEELING? (Gentle emotional labeling: worry, sadness, frustration, fear, guilt, disappointment, confusion, loneliness, anger, overwhelm)
+2. WHAT AM I FEELING? (Nuanced emotional states, each framed gently using possibility phrasing)
 3. WHAT DO I KNOW vs WHAT DO I FEAR? (Separate what is supported by facts, what the user thinks, what they fear, and what is currently unknown)
 4. WHAT BELONGS TO YOU? (Control Circle: what is within user's direct control vs what is outside control like other people's thoughts/reactions or future decree)
 5. ONE SMALL STEP (Give ONE realistic, immediate, non-overwhelming next step achievable in 15-20 minutes, plus an alternative)
 6. ISLAMIC GROUNDING:
    - Sourced strictly from authentic Qur'an and authentic Sunnah following a Salafi / Ahl al-Hadith methodology.
    - SOURCING RULES: NEVER invent, hallucinate, or fabricate a verse, hadith, or scholar statement.
-   - When citing Qur'an: provide exact Surah name and verse number (e.g. Surah At-Talaq [65:3], Surah Ar-Ra'd [13:28], Surah Ash-Sharh [94:5-6], Surah Al-Baqarah [2:286], Surah Al-Baqarah [2:216]).
+   - When citing Qur'an: provide exact Surah name and verse number (e.g. Surah At-Talaq [65:3], Surah Ar-Ra'd [13:28], Surah Ash-Sharh [94:5-6], Surah Al-Baqarah [2:286], Surah Al-Baqarah [2:216], Surah Ibrahim [14:7]).
    - When citing Hadith: use only authentic narrations (Sahih al-Bukhari, Sahih Muslim, Jami' al-Tirmidhi, etc.) with collection name, hadith number, and grading.
    - You may select from these verified citations when relevant:
 ${verifiedCatalogText}
+   - Themes include Tawakkul, Sabr, Dua, Dhikr, Raja', Rida, Akhirah Perspective, Taking Means, and Shukr & Gratitude.
    - Clear distinction: Category must be "QUR'AN" or "HADITH" or "SCHOLAR STATEMENT".
    - Language: "Perhaps this is a moment to do what is within your ability, then leave the outcome to Allah."
    - If user's dilemma is purely practical, practical advice first, spiritual grounding second.

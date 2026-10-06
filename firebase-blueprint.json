@@ -1,0 +1,94 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User account profile and cloud synchronization consent settings.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The user UID matching the authenticated user."
+        },
+        "email": {
+          "type": "string",
+          "description": "User email address."
+        },
+        "displayName": {
+          "type": "string",
+          "description": "User display name."
+        },
+        "cloudSyncConsent": {
+          "type": "boolean",
+          "description": "Whether user explicitly consented to cloud synchronization."
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "ISO timestamp when the user profile was created."
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "ISO timestamp when the user profile was last updated."
+        }
+      },
+      "required": ["id", "cloudSyncConsent", "createdAt"]
+    },
+    "JournalEntry": {
+      "title": "JournalEntry",
+      "description": "A private reflection or journal entry belonging to the user.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the journal entry."
+        },
+        "userId": {
+          "type": "string",
+          "description": "UID of the owner of the reflection."
+        },
+        "title": {
+          "type": "string",
+          "description": "Title or short preview of the reflection."
+        },
+        "rawText": {
+          "type": "string",
+          "description": "The journal text content or encrypted payload."
+        },
+        "mood": {
+          "type": "string",
+          "description": "Mood tag chosen during reflection."
+        },
+        "hasReflection": {
+          "type": "boolean",
+          "description": "Whether an untangled reflection analysis is attached."
+        },
+        "reflectionData": {
+          "type": "string",
+          "description": "Serialized or encrypted JSON of the reflection result."
+        },
+        "isEncrypted": {
+          "type": "boolean",
+          "description": "Whether the entry was encrypted client-side."
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "ISO timestamp when entry was created."
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "ISO timestamp when entry was last updated."
+        }
+      },
+      "required": ["id", "userId", "title", "rawText", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "User profile with explicit cloud storage consent."
+    },
+    "/users/{userId}/entries/{entryId}": {
+      "schema": "JournalEntry",
+      "description": "Private journal reflections owned strictly by the authenticated user."
+    }
+  }
+}

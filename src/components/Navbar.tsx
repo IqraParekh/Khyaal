@@ -1,9 +1,10 @@
 import React from 'react';
-import { BookOpen, Sparkles, Compass, ShieldCheck, PenLine, HeartHandshake } from 'lucide-react';
+import { BookOpen, Sparkles, Compass, ShieldCheck, PenLine, Cloud, Heart } from 'lucide-react';
+import { useAuth } from '../context/AuthContext';
 
 interface NavbarProps {
-  activeTab: 'home' | 'dump' | 'journal' | 'patterns';
-  setActiveTab: (tab: 'home' | 'dump' | 'journal' | 'patterns') => void;
+  activeTab: 'home' | 'dump' | 'journal' | 'patterns' | 'gratitude';
+  setActiveTab: (tab: 'home' | 'dump' | 'journal' | 'patterns' | 'gratitude') => void;
   onOpenDaily: () => void;
   onOpenPrivacy: () => void;
 }
@@ -14,6 +15,8 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenDaily,
   onOpenPrivacy
 }) => {
+  const { user, cloudConsent, setShowAuthModal } = useAuth();
+
   return (
     <header className="sticky top-0 z-40 bg-[#F6F2EA]/90 backdrop-blur-md border-b border-[#E9E1D5]/80 transition-all">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
@@ -68,6 +71,18 @@ export const Navbar: React.FC<NavbarProps> = ({
           </button>
 
           <button
+            onClick={() => setActiveTab('gratitude')}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium transition ${
+              activeTab === 'gratitude'
+                ? 'bg-[#3F4039] text-[#F6F2EA]'
+                : 'text-[#786A5B] hover:text-[#3F4039] hover:bg-[#E9E1D5]/60'
+            }`}
+          >
+            <Heart className="w-3.5 h-3.5 text-[#B49A68]" />
+            <span>Gratitude</span>
+          </button>
+
+          <button
             onClick={() => setActiveTab('patterns')}
             className={`hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium transition ${
               activeTab === 'patterns'
@@ -88,6 +103,22 @@ export const Navbar: React.FC<NavbarProps> = ({
             <span className="hidden sm:inline">Daily</span>
           </button>
 
+          {/* Cloud Sync & Account */}
+          <button
+            onClick={() => setShowAuthModal(true)}
+            className={`flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-full text-xs font-medium transition ${
+              user && cloudConsent
+                ? 'bg-[#A8B5A0]/20 text-[#3F4039] hover:bg-[#A8B5A0]/30'
+                : 'text-[#786A5B] hover:text-[#3F4039] hover:bg-[#E9E1D5]/60'
+            }`}
+            title={user ? `Signed in as ${user.displayName || user.email}` : 'Enable Cloud Synchronization'}
+          >
+            <Cloud className="w-3.5 h-3.5 text-[#B49A68]" />
+            <span className="hidden sm:inline">
+              {user ? (cloudConsent ? 'Synced' : 'Account') : 'Sync'}
+            </span>
+          </button>
+
           <button
             onClick={onOpenPrivacy}
             className="p-2 rounded-full text-[#786A5B] hover:text-[#3F4039] hover:bg-[#E9E1D5]/60 transition"
@@ -101,3 +132,4 @@ export const Navbar: React.FC<NavbarProps> = ({
     </header>
   );
 };
+

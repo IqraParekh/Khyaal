@@ -13,6 +13,7 @@ export type MoodType =
 export interface FeelingItem {
   emotion: string;
   explanation: string;
+  possibilityPhrasing?: string;
 }
 
 export interface FactVsFearData {
@@ -34,7 +35,16 @@ export interface OneSmallStepData {
 }
 
 export interface IslamicGroundingData {
-  theme: 'Tawakkul' | 'Sabr' | 'Dua' | 'Dhikr' | 'Raja\'' | 'Rida' | 'Akhirah Perspective' | 'Taking Means';
+  theme:
+    | 'Tawakkul'
+    | 'Sabr'
+    | 'Dua'
+    | 'Dhikr'
+    | 'Raja\''
+    | 'Rida'
+    | 'Akhirah Perspective'
+    | 'Taking Means'
+    | 'Shukr & Gratitude';
   category: 'QUR\'AN' | 'HADITH' | 'SCHOLAR STATEMENT';
   arabicText?: string;
   translation: string;
@@ -74,9 +84,19 @@ export interface JournalEntry {
   isEncrypted?: boolean;
 }
 
+export interface GratitudeEntry {
+  id: string;
+  createdAt: string;
+  prompt: string;
+  content: string;
+  category?: 'Hidden Mercy' | 'Peace of Heart' | 'A Person' | 'Everyday Provision' | 'A Relief';
+  isEncrypted?: boolean;
+}
+
 export interface PatternInsight {
   themeTitle: string;
   observation: string;
   groundingPrompt: string;
   suggestedAction: string;
 }
+

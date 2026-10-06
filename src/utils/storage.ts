@@ -177,3 +177,101 @@ function getInitialDemoEntries(): JournalEntry[] {
     }
   ];
 }
+
+const GRATITUDE_STORAGE_KEY = 'khayal_gratitude_entries_v1';
+
+export async function getStoredGratitudes(): Promise<import('../types').GratitudeEntry[]> {
+  try {
+    const raw = localStorage.getItem(GRATITUDE_STORAGE_KEY);
+    if (!raw) {
+      return [
+        {
+          id: 'demo-gratitude-1',
+          createdAt: new Date(Date.now() - 3600000 * 8).toISOString(),
+          prompt: 'What blessings have you noticed?',
+          content: 'A quiet morning with fresh cool air after Fajr, my mother’s smile, and clean water to drink.',
+          category: 'Everyday Provision',
+          isEncrypted: true
+        },
+        {
+          id: 'demo-gratitude-2',
+          createdAt: new Date(Date.now() - 3600000 * 28).toISOString(),
+          prompt: 'What is one quiet mercy that arrived unnoticed today?',
+          content: 'I was worried about a difficult conversation, but Allah softened their heart and we found an easy solution.',
+          category: 'A Relief',
+          isEncrypted: true
+        }
+      ];
+    }
+
+    const parsed = JSON.parse(raw) as (Omit<import('../types').GratitudeEntry, 'content'> & {
+      contentCipher?: string;
+      content?: string;
+    })[];
+
+    const result: import('../types').GratitudeEntry[] = [];
+    for (const item of parsed) {
+      let content = item.content || '';
+      if (item.contentCipher) {
+        content = await decryptData(item.contentCipher);
+      }
+      result.push({
+        ...item,
+        content,
+        isEncrypted: true
+      });
+    }
+
+    return result;
+  } catch (err) {
+    console.error('Error loading stored gratitudes', err);
+    return [];
+  }
+}
+
+export async function saveGratitudeEntry(entry: import('../types').GratitudeEntry): Promise<void> {
+  const current = await getStoredGratitudes();
+  const index = current.findIndex((g) => g.id === entry.id);
+
+  if (index >= 0) {
+    current[index] = entry;
+  } else {
+    current.unshift(entry);
+  }
+
+  const serialized = [];
+  for (const item of current) {
+    const contentCipher = await encryptData(item.content);
+    serialized.push({
+      id: item.id,
+      createdAt: item.createdAt,
+      prompt: item.prompt,
+      category: item.category,
+      contentCipher,
+      isEncrypted: true
+    });
+  }
+
+  localStorage.setItem(GRATITUDE_STORAGE_KEY, JSON.stringify(serialized));
+}
+
+export async function deleteGratitudeEntry(id: string): Promise<void> {
+  const current = await getStoredGratitudes();
+  const filtered = current.filter((g) => g.id !== id);
+
+  const serialized = [];
+  for (const item of filtered) {
+    const contentCipher = await encryptData(item.content);
+    serialized.push({
+      id: item.id,
+      createdAt: item.createdAt,
+      prompt: item.prompt,
+      category: item.category,
+      contentCipher,
+      isEncrypted: true
+    });
+  }
+
+  localStorage.setItem(GRATITUDE_STORAGE_KEY, JSON.stringify(serialized));
+}
+

@@ -1,6 +1,6 @@
 export interface IslamicSource {
   id: string;
-  theme: 'Tawakkul' | 'Sabr' | 'Dua' | 'Dhikr' | 'Raja\'' | 'Rida' | 'Akhirah Perspective' | 'Taking Means';
+  theme: 'Tawakkul' | 'Sabr' | 'Dua' | 'Dhikr' | 'Raja\'' | 'Rida' | 'Akhirah Perspective' | 'Taking Means' | 'Shukr & Gratitude';
   category: 'QUR\'AN' | 'HADITH' | 'SCHOLAR STATEMENT';
   arabicText?: string;
   translation: string;
@@ -10,6 +10,36 @@ export interface IslamicSource {
 }
 
 export const VERIFIED_ISLAMIC_SOURCES: IslamicSource[] = [
+  {
+    id: 'quran-14-7',
+    theme: 'Shukr & Gratitude',
+    category: 'QUR\'AN',
+    arabicText: 'وَإِذْ تَأَذَّنَ رَبُّكُمْ لَئِن شَكَرْتُمْ لَأَزِيدَنَّكُمْ ۖ وَلَئِن كَفَرْتُمْ إِنَّ عَذَابِي لَشَدِيدٌ',
+    translation: 'And [remember] when your Lord proclaimed: "If you are grateful, I will surely increase you [in favor]; but if you deny, indeed, My punishment is severe."',
+    reference: 'Surah Ibrahim [14:7]',
+    context: 'When remembering that recognizing blessings is a gateway to tranquility and continued divine favor.',
+    spiritualReflection: 'Gratitude is not mere complacency; it is actively attuning the heart to Allah’s continuous goodness, which preserves existing favors and invites more peace.'
+  },
+  {
+    id: 'hadith-tirmidhi-2346',
+    theme: 'Shukr & Gratitude',
+    category: 'HADITH',
+    arabicText: 'مَنْ أَصْبَحَ مِنْكُمْ آمِنًا فِي سِرْبِهِ، مُعَافًى فِي جَسَدِهِ، عِنْدَهُ قُوتُ يَوْمِهِ، فَكَأَنَّمَا حِيزَتْ لَهُ الدُّنْيَا',
+    translation: 'Whoever among you wakes up secure in his dwelling, healthy in his body, having his food for the day, it is as if the whole world was gathered for him.',
+    reference: 'Jami\' al-Tirmidhi, Hadith 2346 [Graded Hasan by Al-Albani]',
+    context: 'Finding contentment in the primary, foundational blessings of today rather than obsessing over tomorrow’s unwritten worries.',
+    spiritualReflection: 'Safety right now, life and strength in your body, and provision for today—these three essentials are the true kingdom of this dunya. Pausing to see them silences much of our anxiety.'
+  },
+  {
+    id: 'hadith-muslim-2963',
+    theme: 'Shukr & Gratitude',
+    category: 'HADITH',
+    arabicText: 'عَجَبًا لأَمْرِ الْمُؤْمِنِ إِنَّ أَمْرَهُ كُلَّهُ خَيْرٌ وَلَيْسَ ذَاكَ لأَحَدٍ إِلاَّ لِلْمُؤْمِنِ إِنْ أَصَابَتْهُ سَرَّاءُ شَكَرَ فَكَانَ خَيْرًا لَهُ وَإِنْ أَصَابَتْهُ ضَرَّاءُ صَبَرَ فَكَانَ خَيْرًا لَهُ',
+    translation: 'How wonderful is the affair of the believer! For his affair is all good, and this applies to no one except the believer: If prosperity arrives, he expresses gratitude and it is good for him; and if adversity befalls him, he shows patience and it is good for him.',
+    reference: 'Sahih Muslim, Hadith 2963 [Grading: Sahih]',
+    context: 'Teaching contentment and gratitude during ease, and patience during adversity.',
+    spiritualReflection: 'The heart of a believer is never defeated: in moments of ease, it blooms in gratitude; in moments of difficulty, it gains nobility through patience.'
+  },
   {
     id: 'quran-13-28',
     theme: 'Dhikr',

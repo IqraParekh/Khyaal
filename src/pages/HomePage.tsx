@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { PenLine, BookOpen, Sparkles, Shield, ArrowRight, CheckCircle2 } from 'lucide-react';
 import { VERIFIED_ISLAMIC_SOURCES } from '../data/islamicGroundings';
+import { ConsistencyTracker } from '../components/ConsistencyTracker';
+import { getStoredEntries } from '../utils/storage';
+import { calculateStreakStats, StreakStats } from '../utils/streak';
 
 interface HomePageProps {
   onStartJournal: () => void;
@@ -15,11 +18,22 @@ export const HomePage: React.FC<HomePageProps> = ({
   onOpenDaily,
   onOpenPrivacy
 }) => {
+  const [streakStats, setStreakStats] = useState<StreakStats | null>(null);
+
+  useEffect(() => {
+    async function loadStats() {
+      const entries = await getStoredEntries();
+      const calculated = calculateStreakStats(entries);
+      setStreakStats(calculated);
+    }
+    loadStats();
+  }, []);
+
   // Today's Khayal featured authentic reflection
   const featuredReminder = VERIFIED_ISLAMIC_SOURCES[0]; // Surah Ar-Ra'd 13:28
 
   return (
-    <div className="space-y-16 sm:space-y-24 py-4 sm:py-8">
+    <div className="space-y-14 sm:space-y-20 py-4 sm:py-8">
       {/* Hero Section */}
       <section className="text-center max-w-3xl mx-auto px-4 sm:px-6 pt-6 sm:pt-12">
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#E9E1D5]/60 border border-[#E9E1D5] text-[#786A5B] text-xs font-medium mb-6 animate-in fade-in duration-700">
@@ -73,6 +87,13 @@ export const HomePage: React.FC<HomePageProps> = ({
           <span>Local client-side encryption · Reflections stay private on this device</span>
         </div>
       </section>
+
+      {/* Consistency Tracker: Daily Habit Without Pressure */}
+      {streakStats && (
+        <section className="max-w-3xl mx-auto px-4 sm:px-6">
+          <ConsistencyTracker stats={streakStats} onStartJournal={onStartJournal} />
+        </section>
+      )}
 
       {/* Subtle Verified Qur'an Foundation */}
       <section className="max-w-2xl mx-auto px-4 sm:px-6">
